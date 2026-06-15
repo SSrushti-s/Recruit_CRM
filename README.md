@@ -1,36 +1,30 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Recruiting CRM — Job Application Pipeline Tracker
 
-## Getting Started
+A highly optimized, full-stack Candidate Relationship Management (CRM) platform designed for tech professionals to manage high-volume job search pipelines in real-time. Built with the Next.js 15 App Router, Prisma ORM v5, and a live cloud PostgreSQL instance on Supabase.
 
-First, run the development server:
+## 🚀 Core Features
 
+- **Authentication Gateway:** A streamlined, secure login interface that isolates user tracking domains dynamically.
+- **Real-Time Status Pipeline:** Seamlessly transition opportunities across core hiring loops (`Wishlist`, `Applied`, `OA Stage`, `Interviewing`) utilizing a custom, responsive dropdown component.
+- **Server Action Engine:** Form submissions and state changes utilize modern secure Next.js Server Actions, minimizing frontend-to-backend API fetch overhead.
+- **Enterprise Storage System:** Backed by an AWS-hosted Supabase cloud PostgreSQL cluster utilizing smart connection pools.
+
+## 🛠️ Tech Stack & Architecture
+
+- **Framework:** Next.js 15 (App Router, Server Components, and Asynchronous Server Actions)
+- **Database ORM:** Prisma Client v5.22.0 (Native PostgreSQL Engine mappings)
+- **Cloud Database:** Supabase PostgreSQL (Distributed Cloud Hosting on AWS)
+- **Styling primitives:** Tailwind CSS (Modern dark mode utility layout)
+
+### Architectural Data Flow
+
+1. **Client Tier:** Interactive events (like pipeline status changes) run inside dedicated `'use client'` component leaves.
+2. **Compute Tier:** Mutations leverage secure RPC-style Server Actions, running exclusively on the server layer.
+3. **Storage Tier:** Query commands target the Supabase Transaction Pooler (Port `6543`), while structural migrations route directly to the core instance (Port `5432`).
+
+## 📦 Installation & Local Development
+
+### 1. Clone the repository
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+git clone [https://github.com/SSrushti-s/Recruit_CRM.git]
+cd tech_job_crm
