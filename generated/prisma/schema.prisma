@@ -1,0 +1,96 @@
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL") // Next.js runtime (Pooler)
+  directUrl = env("DIRECT_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+model Application {
+  id          String            @id @default(uuid())
+  companyName String
+  roleTitle   String
+  jobUrl      String?
+  location    String?
+  salaryRange String?
+  status      ApplicationStatus @default(APPLIED)
+  notes       String?           @db.Text
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+
+  stages   Stage[]
+  contacts Contact[]
+  tasks    Task[]
+}
+
+enum ApplicationStatus {
+  WISHLIST
+  APPLIED
+  OA_STAGE
+  INTERVIEWING
+  OFFER
+  REJECTED
+  GHOSTED
+}
+
+model Stage {
+  id            String      @id @default(uuid())
+  applicationId String
+  application   Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+
+  type   StageType
+  title  String
+  status StageStatus @default(SCHEDULED)
+
+  scheduledAt DateTime?
+  completedAt DateTime?
+  feedback    String?   @db.Text
+
+  createdAt DateTime @default(now())
+}
+
+enum StageType {
+  RECRUITER_CALL
+  ONLINE_ASSESSMENT
+  TECHNICAL_INTERVIEW
+  SYSTEM_DESIGN
+  BEHAVIORAL
+  FIT_ROUND
+  FOLLOW_UP
+}
+
+enum StageStatus {
+  SCHEDULED
+  COMPLETED
+  MISSED
+  CANCELLED
+}
+
+model Contact {
+  id            String      @id @default(uuid())
+  applicationId String
+  application   Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+
+  name        String
+  role        String
+  email       String?
+  linkedInUrl String?
+  notes       String?
+
+  createdAt DateTime @default(now())
+}
+
+model Task {
+  id            String      @id @default(uuid())
+  applicationId String
+  application   Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+
+  title       String
+  dueDate     DateTime?
+  isCompleted Boolean   @default(false)
+
+  createdAt DateTime @default(now())
+}
